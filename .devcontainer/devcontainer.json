@@ -1,0 +1,29 @@
+{
+	"name": "Operator SDK Dev environment",
+	"dockerFile": "Dockerfile",
+	"runArgs": ["--privileged"],
+	"mounts": [
+		"source=minikube-var-lib-docker,target=/var/lib/docker,type=volume",
+		"source=minikube-config,target=/home/vscode/.minikube,type=volume",
+	],
+	"overrideCommand": false,
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-azuretools.vscode-docker",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"dbaeumer.vscode-eslint"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"appPort": ["80:80"],
+
+	// Use 'postStartCommand' to run commands after the container is created like starting minikube.
+	"postStartCommand": "/bin/bash .devcontainer/post-scripts/script.sh",
+
+	// Minikube does not like running as root, so use a non-root user.
+	"remoteUser": "vscode",
+}
